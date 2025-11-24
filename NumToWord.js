@@ -248,3 +248,5 @@ class NumToWord {
         return num;
     }
 }
+
+module.exports = NumToWord;
