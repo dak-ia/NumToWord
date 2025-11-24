@@ -19,6 +19,10 @@ class NumToWord {
         num = num.toString().replace(/[０-９]/g, function (s) {
             return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
         }).replace(/．/g, ".").replace(/，/g, "").replace(/\,/g, "").replace(/\s/g, "").trim();
+        // 小数点のみの入力をチェック
+        if (/^\.+$/.test(num)) {
+            throw new Error("NaN");
+        }
         if (!RegExp(/[^0-9\.]/g, "").test(num) && (num.match(/\./g) || []).length <= 1) {
             if (num.substr(0, 1) == ".") {
                 num = "0" + num;
@@ -122,13 +126,17 @@ class NumToWord {
     static toLocaleString(locale, num) {
         if (locale == null || locale == undefined || locale == "" || num == null || num == undefined || num == "") {
             throw new TypeError("Cannot read property 'argument' of undefined");
-        } else if (locale == "si" || locale == "Si") {
+        }
+
+        const localeLower = locale.toLowerCase();
+
+        if (localeLower == "si") {
             return NumToWord.toSi(num);
-        } else if (locale == "en" || locale == "En" || locale == "EN" || locale == "english" || locale == "English" || locale == "ENGLISH") {
+        } else if (localeLower == "en" || localeLower == "english") {
             return NumToWord.toEn(num);
-        } else if (locale == "jp" || locale == "Jp" || locale == "JP" || locale == "japanese" || locale == "Japanese" || locale == "JAPANESE") {
+        } else if (localeLower == "jp" || localeLower == "japanese") {
             return NumToWord.toJp(num);
-        } else if (locale == "jpDaiji" || locale == "JpDaiji" || locale == "JPDaiji" || locale == "daiji" || locale == "Daiji" || locale == "DAIJI") {
+        } else if (localeLower == "jpdaiji" || localeLower == "daiji") {
             return NumToWord.toJpDaiji(num);
         } else {
             throw new Error("Invalid locale");
@@ -158,6 +166,10 @@ class NumToWord {
         const numArray = numToWord.#splitNum(num);
         if (numArray.integer.length > (Object.values(numToWord.#enOthersPlace).length - 1) * 3) {
             throw new Error("Overflow");
+        }
+        // 連続ゼロを単一の0として扱う（小数部がない場合のみ）
+        if (/^0+$/.test(numArray.integer) && numArray.decimal == "") {
+            return "Zero";
         }
         let integerArray = numToWord.#sliceTo3digitNum(numArray.integer);
         let decimalArray = numToWord.#sliceTo1digitNum(numArray.decimal);
@@ -191,6 +203,14 @@ class NumToWord {
         if (numArray.integer.length > numToWord.#jpOthersPlace.length * 4) {
             throw new Error("Overflow");
         }
+        // ゼロの特別処理（小数部がない場合のみ）
+        if (numArray.integer == "0" && numArray.decimal == "") {
+            return numToWord.#jpOnesPlace[0];
+        }
+        // 連続ゼロを単一の0として扱う
+        if (/^0+$/.test(numArray.integer) && numArray.decimal == "") {
+            return numToWord.#jpOnesPlace[0];
+        }
         let integerArray = numToWord.#sliceTo4digitNum(numArray.integer);
         let decimalArray = numToWord.#sliceTo1digitNum(numArray.decimal);
         integerArray = integerArray.reverse().map((num, i) => {
@@ -201,16 +221,26 @@ class NumToWord {
         decimalArray = decimalArray.map(num => {
             return numToWord.#jpOnesPlace[num];
         });
+
+        let integerPart = integerArray.join("");
+        // 整数部が空（すべて0）で小数部がある場合は〇を表示
+        if (integerPart === "" && decimalArray.length > 0) {
+            integerPart = numToWord.#jpOnesPlace[0];
+        }
+
         if (decimalArray.length > 0) {
-            return integerArray.join("") + "・" + decimalArray.join("");
+            return integerPart + "・" + decimalArray.join("");
         } else {
-            return integerArray.join("");
+            return integerPart;
         }
     }
 
     static toJpDaiji(num) {
         const numToWord = new NumToWord;
         num = NumToWord.toJp(num);
+        // 大字では百・千の前に「壱」を明記する（例: 百→壱百、千→壱千）
+        num = num.replace(/(万|億|兆|京|垓|𥝱|穣|溝|澗|正|載|極|恒河沙|阿僧祇|那由他|不可思議|無量大数|^)(百|千)/gu, '$1一$2');
+        // 通常の大字変換
         for (let i = 0; i <= 13; i++) {
             let reg = new RegExp(numToWord.#jpDaijiBefore[i], "g");
             num = num.replace(reg, numToWord.#jpDaijiAfter[i]);
