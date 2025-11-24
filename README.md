@@ -1,159 +1,488 @@
 # NumToWord.js
 
-### NumToWord.js | MIT License | https://github.com/dak-ia/NumToWord.js/blob/main/LICENSE
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D12.0.0-brightgreen.svg)](https://nodejs.org/)
 
-# Japanese
+数字を各言語の単語に変換します（英語、日本語、SI 接頭語）。
 
-数字を各言語の単語に変換します。
-以下の関数があります。
+Convert numbers to words in multiple languages (English, Japanese, SI prefixes).
 
-_NumToWord.toLocaleString_  
-_NumToWord.toSi_  
-_NumToWord.toEn_  
-_NumToWord.toJp_  
-_NumToWord.toJpDaiji_
+---
 
-## 構文
+## 📖 目次 / Table of Contents
 
-```javascript
-let word = NumToWord.toEn(number);
-let word = NumToWord.toLocaleString(locale, number);
-```
+- [日本語](#日本語)
+  - [インストール](#インストール)
+  - [クイックスタート](#クイックスタート)
+  - [API リファレンス](#apiリファレンス)
+  - [入力形式](#入力形式)
+  - [エラーハンドリング](#エラーハンドリング)
+- [English](#english)
+  - [Installation](#installation)
+  - [Quick Start](#quick-start)
+  - [API Reference](#api-reference)
+  - [Input Format](#input-format)
+  - [Error Handling](#error-handling)
 
-## 引数
+---
 
-### number
+## 日本語
 
-number 型でも string 型でもどちらでも入力できます。半角でも全角でもどちらでも問題ありません。  
-しかし、引数は string 型推奨です。number 型の場合、内部で使用している toString()などの処理の都合上、予期せぬ結果になることがあります。  
-数字以外の文字を入力すると*NaN*エラーが発生します。  
-同様に*123.456.789*のように小数点を 2 つ入力以上すると、自然数ではないのでエラーが発生します。  
-引数が空だと*undefined*エラーが発生します。引数が大きく、辞書の範囲外になる場合は*overflow*エラーが発生します。  
-内部でカンマを消しているため*123,456,789*のような入力値の場合は*123456789*に変換されるのでそのまま利用できます。  
-指数表記の入力には現在未対応です。
+### インストール
 
-- *NumToWord.toSi*は四捨五入して SI 接頭語の記号を適用した状態に変換します。10^30（Q）まで対応しています。
-- *NumToWord.toEn*は数字を英単語の数字に変換します。10^306（uncentillion）まで対応しています。
-- *NumToWord.toJp*は数字を漢数字に変換します。10^68（無量大数）まで対応しています。
-- *NumToWord.toJpDaiji*は数字を漢数字に変換したうえで、対応している文字を大字に変換します。10^68（無量大数）まで対応していますが変換されるのは萬（万）までです。
+最新リリースは [Releases ページ](https://github.com/dak-ia/NumToWord.js/releases) からダウンロードできます。
 
-### locale
+<!-- **npm (公開準備中)**
 
-言語を選択できます。En、Jp などの NumToWord が対応している言語すべてに対応しています。
+```bash
+# 公開後に利用可能になります
+npm install num-to-word
+``` -->
 
-## 返値
+### クイックスタート
 
-### word
-
-出力です。文字型になります。
-
-## 例
-
-### 入力
-
-_123456.789_
-
-### 出力
-
-- _NumToWord.toLocaleString("en",123456.789)_ →
-  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
-- _NumToWord.toSi_ →
-  - _123.457K_
-- _NumToWord.toEn_ →
-  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
-- _NumToWord.toJp_ →
-  - _十二万三千四百五十六・七八九_
-- _NumToWord.toJpDaiji_ →
-  - _拾弐萬参阡肆陌伍拾陸・漆捌玖_
-
-## やるかもしれないこと（予定）
-
-- 他言語対応
-- 数字の区切り文字は世界を見渡すとをカンマだけではないようなので、ピリオドやスペースに対応
-- 指数表記の入力に対応
-- 数学的な記号に対応
-- （あれば）quadragintillion の先
-- （あれば）無量大数の先
-- （あれば）萬の先
-- Short scale と Long scale についての対応
-- 逆変換の対応
-
-# English
-
-Converts numbers to words in each language.
-There are the following functions.
-
-_NumToWord.toLocaleString_  
-_NumToWord.toSi_  
-_NumToWord.toEn_  
-_NumToWord.toJp_  
-_NumToWord.toJpDaiji_
-
-## Syntax
+**Node.js (CommonJS)**
 
 ```javascript
-let word = NumToWord.toEn(number);
+const NumToWord = require("num-to-word");
+
+console.log(NumToWord.toEn(123456.789));
+// → "One hundred twenty-three thousand four hundred fifty-six point seven eight nine"
 ```
 
-## argument
+**Node.js (ESM)**
 
-### number
+```javascript
+import NumToWord from "num-to-word";
 
-Both number and string types can be used as input, regardless of whether they are half-width or full-width characters.  
-However, string type is recommended for arguments. If a number type is used, unexpected results may occur due to processing such as toString().  
-Entering characters other than numbers will result in a NaN error.  
-Similarly, if two or more decimal points are entered, such as 123.456.789, an error will occur because it is not a natural number.  
-If the argument is empty, an undefined error will occur. If the argument is large and outside the range of the dictionary, an overflow error will occur.  
-Commas are removed internally, so input values such as 123,456,789 can be used as they are.  
-Exponential notation is currently not supported.
+// 英語
+console.log(NumToWord.toEn(123456.789));
+// → "One hundred twenty-three thousand four hundred fifty-six point seven eight nine"
 
-- _NumToWord.toSi_ rounds and converts to the state with the SI prefix sign applied. Up to 10^30 (Q) is supported.
-- _NumToWord.toEn_ converts numbers to English word numbers and supports up to 10^306 (uncentillion).
-- _NumToWord.toJp_ converts numbers to Kanzi numerals and supports up to 10^68 (無量大数).
-- _NumToWord.toJpDaiji_ converts numbers to Kanzi numerals and then converts the corresponding characters to large letters. It supports up to 10^68 (無量大数), but only up to 萬 (万) is converted.
+// 日本語
+console.log(NumToWord.toJp(123456.789));
+// → "十二万三千四百五十六・七八九"
 
-### locale
+// SI接頭語
+console.log(NumToWord.toSi(123456.789));
+// → "123.457K"
 
-You can choose your language. It supports all languages supported by NumToWord such as En, Jp.
+// ロケール指定
+console.log(NumToWord.toLocaleString("jp", 123456));
+// → "十二万三千四百五十六"
+```
 
-## Return value
+**ブラウザ (HTML)**
 
-### word
+```html
+<script src="./NumToWord.js"></script>
+<script>
+  document.getElementById("result").textContent = NumToWord.toJp(12345);
+</script>
+```
 
-The output. It will be a character type.
+### API リファレンス
 
-## example
+#### `NumToWord.toEn(num)`
 
-### input
+数字を英語の単語に変換します。
 
-_123456.789_
+- **引数**: `num` (number | string) - 変換する数字
+- **戻り値**: string - 英語表現
+- **範囲**: 10^306 (Uncentillion) まで
+- **例**:
+  ```javascript
+  NumToWord.toEn(123); // "One hundred twenty-three"
+  NumToWord.toEn(123.45); // "One hundred twenty-three point four five"
+  NumToWord.toEn("1234567"); // "One million two hundred thirty-four thousand five hundred sixty-seven"
+  ```
 
-### output
+#### `NumToWord.toJp(num)`
 
-- _NumToWord.toLocaleString("en",123456.789)_ →
-  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
-- _NumToWord.toSi_ →
-  - _123.457K_
-- _NumToWord.toEn_ →
-  - _One hundred twenty-three thousand four hundred fifty-six point seven eight nine_
-- _NumToWord.toJp_ →
-  - _十二万三千四百五十六・七八九_
-- _NumToWord.toJpDaiji_ →
-  - _拾弐萬参阡肆陌伍拾陸・漆捌玖_
+数字を日本語の漢数字に変換します。
 
-## What I might do (planned)
+- **引数**: `num` (number | string) - 変換する数字
+- **戻り値**: string - 日本語（漢数字）表現
+- **範囲**: 10^68 (無量大数) まで
+- **例**:
+  ```javascript
+  NumToWord.toJp(123); // "百二十三"
+  NumToWord.toJp(123.45); // "百二十三・四五"
+  NumToWord.toJp("1234567"); // "百二十三万四千五百六十七"
+  ```
 
-- Support for other languages
-- Support for decimal separators other than commas, such as periods or spaces, as they are used in different parts of the world
-- Support for input in exponential notation
-- Support for mathematical symbols
-- Beyond quadragintillion, if applicable
-- Beyond the "無量大数" (10^68), if applicable
-- Beyond "萬" (10,000), if applicable
-- Support for both short scale and long scale number naming systems
-- Support for converting numbers back to their original form
+#### `NumToWord.toJpDaiji(num)`
 
-## Version
+数字を日本語の大字に変換します。
 
-- Ver.0.1.0 earlier are beta versions
-- 0.1.0 2023/06/18(UTC+09) : First release
+- **引数**: `num` (number | string) - 変換する数字
+- **戻り値**: string - 日本語（大字）表現
+- **範囲**: 10^68 まで対応、大字変換は萬 (10,000) まで
+- **例**:
+  ```javascript
+  NumToWord.toJpDaiji(123); // "壱陌弐拾参"
+  NumToWord.toJpDaiji("1234567"); // "壱陌弐拾参萬肆阡伍陌陸拾漆"
+  ```
+
+#### `NumToWord.toSi(num)`
+
+数字を SI 接頭語表記に変換します（四捨五入）。
+
+- **引数**: `num` (number | string) - 変換する数字
+- **戻り値**: string - SI 接頭語表現
+- **範囲**: 10^30 (Q - Quetta) まで
+- **接頭語**: K, M, G, T, P, E, Z, Y, R, Q
+- **例**:
+  ```javascript
+  NumToWord.toSi(1234); // "1.234K"
+  NumToWord.toSi(1234567); // "1.235M"
+  NumToWord.toSi("1234567890"); // "1.235G"
+  ```
+
+#### `NumToWord.toLocaleString(locale, num)`
+
+指定したロケールで数字を変換します。
+
+- **引数**:
+  - `locale` (string) - ロケール識別子: `"si"`, `"en"`, `"english"`, `"jp"`, `"japanese"`, `"jpdaiji"`, `"daiji"`
+  - `num` (number | string) - 変換する数字
+- **戻り値**: string - ロケール対応表現
+- **例**:
+  ```javascript
+  NumToWord.toLocaleString("en", 123); // "One hundred twenty-three"
+  NumToWord.toLocaleString("jp", 123); // "百二十三"
+  NumToWord.toLocaleString("si", 123456); // "123.456K"
+  ```
+
+#### `NumToWord.version`
+
+ライブラリのバージョン文字列。
+
+```javascript
+console.log(NumToWord.version); // "0.1.0"
+```
+
+### 入力形式
+
+#### サポートされている入力タイプ
+
+- **number 型**: `NumToWord.toEn(123)`
+- **string 型（推奨）**: `NumToWord.toEn("123")`
+- **全角数字**: `NumToWord.toEn("123")` （自動変換）
+- **カンマ区切り**: `NumToWord.toEn("123,456,789")` （自動的に削除）
+
+#### 重要な注意事項
+
+⚠️ **大きな数字には string 型を推奨** - JavaScript の number 型の精度制限を回避できます。
+
+```javascript
+// number型は大きな値で精度が失われる可能性があります
+NumToWord.toEn(12345678901234567890); // 予期しない結果になる可能性
+
+// string型は精度を維持します
+NumToWord.toEn("12345678901234567890"); // 正確な変換
+```
+
+### エラーハンドリング
+
+不正な入力に対してエラーをスローします:
+
+```javascript
+try {
+  NumToWord.toEn("abc"); // Error("NaN") をスロー
+} catch (e) {
+  console.error(e.message);
+}
+
+// TypeError: Invalid argument
+NumToWord.toEn(); // TypeError をスロー
+NumToWord.toEn(null); // TypeError をスロー
+
+// Error: Overflow
+NumToWord.toEn("1e400"); // Error をスロー（最大範囲を超過）
+
+// Error: Invalid locale
+NumToWord.toLocaleString("fr", 123); // Error をスロー
+```
+
+### TypeScript サポート
+
+TypeScript 型定義が含まれています:
+
+```typescript
+import NumToWord = require("num-to-word");
+
+const result: string = NumToWord.toEn(123);
+```
+
+### 開発
+
+#### テストの実行
+
+```bash
+npm test              # 全テストを実行
+npm run test:watch    # ウォッチモードでテストを実行
+npm run test:coverage # カバレッジレポート付きでテストを実行
+```
+
+### 制限事項と今後の予定
+
+#### 現在の制限事項
+
+- ❌ 指数表記未対応（例: `1e10`）
+- ❌ 千の位の区切りはカンマのみ対応（ピリオドやスペースは未対応）
+- ❌ 英語と日本語のみ対応
+- ❌ 逆変換未対応（単語 → 数字）
+
+#### 今後の予定
+
+- [ ] 他言語対応
+- [ ] ピリオド/スペースを千の位区切りとしてサポート
+- [ ] 指数表記の入力対応
+- [ ] 数学記号のサポート
+- [ ] Short scale と Long scale の数値体系対応
+- [ ] 逆変換（単語 → 数字）
+- [ ] 現在の制限を超えた範囲の拡張
+
+---
+
+## English
+
+## Installation
+
+Download the latest release from the [Releases page](https://github.com/dak-ia/NumToWord.js/releases).
+
+<!-- **npm (coming soon)**
+
+```bash
+# Will be available after publication
+npm install num-to-word
+``` -->
+
+## Quick Start
+
+**Node.js (CommonJS)**
+
+```javascript
+const NumToWord = require("num-to-word");
+
+console.log(NumToWord.toEn(123456.789));
+// → "One hundred twenty-three thousand four hundred fifty-six point seven eight nine"
+```
+
+**Node.js (ESM)**
+
+```javascript
+import NumToWord from "num-to-word";
+
+// English
+console.log(NumToWord.toEn(123456.789));
+// → "One hundred twenty-three thousand four hundred fifty-six point seven eight nine"
+
+// Japanese
+console.log(NumToWord.toJp(123456.789));
+// → "十二万三千四百五十六・七八九"
+
+// SI prefix
+console.log(NumToWord.toSi(123456.789));
+// → "123.457K"
+
+// Auto-select by locale
+console.log(NumToWord.toLocaleString("en", 123456));
+// → "One hundred twenty-three thousand four hundred fifty-six"
+```
+
+**Browser (HTML)**
+
+```html
+<script src="./NumToWord.js"></script>
+<script>
+  document.getElementById("result").textContent = NumToWord.toJp(12345);
+</script>
+```
+
+## API Reference
+
+### `NumToWord.toEn(num)`
+
+Convert a number to English words.
+
+- **Parameters**: `num` (number | string) - The number to convert
+- **Returns**: string - English word representation
+- **Range**: Up to 10^306 (Uncentillion)
+- **Example**:
+  ```javascript
+  NumToWord.toEn(123); // "One hundred twenty-three"
+  NumToWord.toEn(123.45); // "One hundred twenty-three point four five"
+  NumToWord.toEn("1234567"); // "One million two hundred thirty-four thousand five hundred sixty-seven"
+  ```
+
+### `NumToWord.toJp(num)`
+
+Convert a number to Japanese Kanji numerals.
+
+- **Parameters**: `num` (number | string) - The number to convert
+- **Returns**: string - Japanese Kanji representation
+- **Range**: Up to 10^68 (無量大数)
+- **Example**:
+  ```javascript
+  NumToWord.toJp(123); // "百二十三"
+  NumToWord.toJp(123.45); // "百二十三・四五"
+  NumToWord.toJp("1234567"); // "百二十三万四千五百六十七"
+  ```
+
+### `NumToWord.toJpDaiji(num)`
+
+Convert a number to Japanese Daiji (formal) numerals.
+
+- **Parameters**: `num` (number | string) - The number to convert
+- **Returns**: string - Japanese Daiji representation
+- **Range**: Up to 10^68, Daiji conversion up to 萬 (10,000)
+- **Example**:
+  ```javascript
+  NumToWord.toJpDaiji(123); // "壱陌弐拾参"
+  NumToWord.toJpDaiji("1234567"); // "壱陌弐拾参萬肆阡伍陌陸拾漆"
+  ```
+
+### `NumToWord.toSi(num)`
+
+Convert a number to SI prefix notation with rounding.
+
+- **Parameters**: `num` (number | string) - The number to convert
+- **Returns**: string - SI prefix representation
+- **Range**: Up to 10^30 (Q - Quetta)
+- **Prefixes**: K, M, G, T, P, E, Z, Y, R, Q
+- **Example**:
+  ```javascript
+  NumToWord.toSi(1234); // "1.234K"
+  NumToWord.toSi(1234567); // "1.235M"
+  NumToWord.toSi("1234567890"); // "1.235G"
+  ```
+
+### `NumToWord.toLocaleString(locale, num)`
+
+Convert a number using the specified locale.
+
+- **Parameters**:
+  - `locale` (string) - Locale identifier: `"si"`, `"en"`, `"english"`, `"jp"`, `"japanese"`, `"jpdaiji"`, `"daiji"`
+  - `num` (number | string) - The number to convert
+- **Returns**: string - Localized representation
+- **Example**:
+  ```javascript
+  NumToWord.toLocaleString("en", 123); // "One hundred twenty-three"
+  NumToWord.toLocaleString("jp", 123); // "百二十三"
+  NumToWord.toLocaleString("si", 123456); // "123.456K"
+  ```
+
+### `NumToWord.version`
+
+Library version string.
+
+```javascript
+console.log(NumToWord.version); // "0.1.0"
+```
+
+## Input Format
+
+### Supported Input Types
+
+- **Number type**: `NumToWord.toEn(123)`
+- **String type** (recommended): `NumToWord.toEn("123")`
+- **Full-width numbers**: `NumToWord.toEn("123")` (converted automatically)
+- **With commas**: `NumToWord.toEn("123,456,789")` (commas removed automatically)
+
+### Important Notes
+
+⚠️ **String type is recommended** for large numbers to avoid JavaScript's number precision limitations.
+
+```javascript
+// Number type may lose precision for large values
+NumToWord.toEn(12345678901234567890); // May produce unexpected results
+
+// String type maintains precision
+NumToWord.toEn("12345678901234567890"); // Accurate conversion
+```
+
+## Error Handling
+
+The library throws errors for invalid input:
+
+```javascript
+try {
+  NumToWord.toEn("abc"); // Throws Error("NaN")
+} catch (e) {
+  console.error(e.message);
+}
+
+// TypeError: Invalid argument
+NumToWord.toEn(); // Throws TypeError
+NumToWord.toEn(null); // Throws TypeError
+
+// Error: Overflow
+NumToWord.toEn("1e400"); // Throws Error (exceeds maximum range)
+
+// Error: Invalid locale
+NumToWord.toLocaleString("fr", 123); // Throws Error
+```
+
+## TypeScript Support
+
+TypeScript definitions are included:
+
+```typescript
+import NumToWord = require("num-to-word");
+
+const result: string = NumToWord.toEn(123);
+```
+
+## Development
+
+### Running Tests
+
+```bash
+npm test              # Run all tests
+npm run test:watch    # Run tests in watch mode
+npm run test:coverage # Run tests with coverage report
+```
+
+## Limitations & Future Plans
+
+### Current Limitations
+
+- ❌ Exponential notation not supported (e.g., `1e10`)
+- ❌ Only supports commas as thousand separators (not periods or spaces)
+- ❌ Only English and Japanese languages
+- ❌ No reverse conversion (words to numbers)
+
+### Planned Features
+
+- [ ] Support for other languages
+- [ ] Support for period/space as thousand separators
+- [ ] Exponential notation input
+- [ ] Mathematical symbols support
+- [ ] Short scale vs Long scale number systems
+- [ ] Reverse conversion (words → numbers)
+- [ ] Extended range beyond current limits
+
+---
+
+## ライセンス / License
+
+MIT License
+
+## 作者 / Author
+
+[dak-ia](https://github.com/dak-ia)
+
+## リポジトリ / Repository
+
+https://github.com/dak-ia/NumToWord.js
+
+## バージョン履歴 / Version History
+
+- **0.1.0** (2023-06-18) - 初回リリース / Initial release
+  - 英語単語変換（10^306 まで）/ English word conversion (up to 10^306)
+  - 日本語漢数字変換（10^68 まで）/ Japanese Kanji conversion (up to 10^68)
+  - 日本語大字変換 / Japanese Daiji conversion
+  - SI 接頭語表記（10^30 まで）/ SI prefix notation (up to 10^30)
+  - ロケールベース変換 / Locale-based conversion
