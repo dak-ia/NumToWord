@@ -140,9 +140,9 @@ describe('NumToWord', () => {
     });
 
     test('throws error for empty input', () => {
-      expect(() => NumToWord.toEn('')).toThrow("Cannot read property 'argument' of undefined");
-      expect(() => NumToWord.toEn(null)).toThrow("Cannot read property 'argument' of undefined");
-      expect(() => NumToWord.toEn(undefined)).toThrow("Cannot read property 'argument' of undefined");
+      expect(() => NumToWord.toEn('')).toThrow('Invalid argument: expected a number or string');
+      expect(() => NumToWord.toEn(null)).toThrow('Invalid argument: expected a number or string');
+      expect(() => NumToWord.toEn(undefined)).toThrow('Invalid argument: expected a number or string');
     });
 
     test('throws error for multiple decimal points', () => {
@@ -412,7 +412,7 @@ describe('NumToWord', () => {
     });
 
     test('throws error for empty input', () => {
-      expect(() => NumToWord.toJp('')).toThrow("Cannot read property 'argument' of undefined");
+      expect(() => NumToWord.toJp('')).toThrow('Invalid argument: expected a number or string');
     });
 
     test('throws error for overflow', () => {
@@ -759,8 +759,8 @@ describe('NumToWord', () => {
     });
 
     test('throws error for empty input', () => {
-      expect(() => NumToWord.toSi('')).toThrow("Cannot read property 'argument' of undefined");
-      expect(() => NumToWord.toSi(undefined)).toThrow("Cannot read property 'argument' of undefined");
+      expect(() => NumToWord.toSi('')).toThrow('Invalid argument: expected a number or string');
+      expect(() => NumToWord.toSi(undefined)).toThrow('Invalid argument: expected a number or string');
     });
 
     test('handles precise K values', () => {
@@ -895,13 +895,13 @@ describe('NumToWord', () => {
     });
 
     test('throws error for empty locale', () => {
-      expect(() => NumToWord.toLocaleString('', '123')).toThrow("Cannot read property 'argument' of undefined");
-      expect(() => NumToWord.toLocaleString(null, '123')).toThrow("Cannot read property 'argument' of undefined");
+      expect(() => NumToWord.toLocaleString('', '123')).toThrow('Invalid argument: expected a number or string');
+      expect(() => NumToWord.toLocaleString(null, '123')).toThrow('Invalid argument: expected a number or string');
     });
 
     test('throws error for empty number', () => {
-      expect(() => NumToWord.toLocaleString('en', '')).toThrow("Cannot read property 'argument' of undefined");
-      expect(() => NumToWord.toLocaleString('en', null)).toThrow("Cannot read property 'argument' of undefined");
+      expect(() => NumToWord.toLocaleString('en', '')).toThrow('Invalid argument: expected a number or string');
+      expect(() => NumToWord.toLocaleString('en', null)).toThrow('Invalid argument: expected a number or string');
     });
 
     test('produces same results as direct methods', () => {
