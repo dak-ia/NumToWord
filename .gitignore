@@ -1,2 +1,15 @@
 node_modules/
 coverage/
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+dist/
+build/
+
+.env
+.env.local

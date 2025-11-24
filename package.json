@@ -1,5 +1,5 @@
 {
-  "name": "num_to_word",
+  "name": "num-to-word",
   "version": "0.1.0",
   "description": "Convert numbers to words in multiple languages (English, Japanese, SI prefixes)",
   "keywords": [
@@ -24,10 +24,27 @@
   "author": "dak-ia",
   "type": "commonjs",
   "main": "NumToWord.js",
+  "exports": {
+    ".": {
+      "require": "./NumToWord.js",
+      "import": "./NumToWord.mjs",
+      "types": "./index.d.ts"
+    }
+  },
+  "files": [
+    "NumToWord.js",
+    "NumToWord.mjs",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   },
   "devDependencies": {
     "jest": "^29.7.0"

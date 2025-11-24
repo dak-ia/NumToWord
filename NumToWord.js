@@ -249,4 +249,7 @@ class NumToWord {
     }
 }
 
-module.exports = NumToWord;
+// CommonJS
+if (typeof module !== 'undefined') {
+    module.exports = NumToWord;
+}
