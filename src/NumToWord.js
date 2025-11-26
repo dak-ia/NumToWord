@@ -1,7 +1,7 @@
 "use strict";
 
 class NumToWord {
-    static version = "0.1.0";
+    static version = __VERSION__;
 
     #siSymbol = ["K", "M", "G", "T", "P", "E", "Z", "Y", "R", "Q"];
     #enOnesPlace = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
@@ -249,7 +249,4 @@ class NumToWord {
     }
 }
 
-// CommonJS
-if (typeof module !== 'undefined') {
-    module.exports = NumToWord;
-}
+export default NumToWord;

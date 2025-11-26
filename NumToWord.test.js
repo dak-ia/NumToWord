@@ -1,4 +1,4 @@
-const NumToWord = require('./NumToWord.js');
+const NumToWord = require('./dist/NumToWord.cjs');
 
 describe('NumToWord', () => {
   describe('toEn - English Conversion', () => {
