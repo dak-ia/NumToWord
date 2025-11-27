@@ -8,7 +8,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, "src/NumToWord.js"),
+      entry: resolve(__dirname, "src/index.js"),
       name: "NumToWord",
       formats: ["es", "cjs"],
       fileName: (format) => `NumToWord.${format === "es" ? "mjs" : "cjs"}`,
