@@ -6,7 +6,6 @@
   "printWidth": 120,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "insertFinalNewline": true,
   "bracketSpacing": true,
   "bracketSameLine": false,
   "useTabs": false
