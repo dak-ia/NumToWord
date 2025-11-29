@@ -1,13 +1,13 @@
-import { jpDaijiBefore, jpDaijiAfter } from "../dictionaries/jp.js";
+import { jpDaijiBefore, jpDaijiAfter, jpOthersPlace } from "../dictionaries/jp.js";
 import { toJp } from "./toJp.js";
 
 export const toJpDaiji = (num) => {
   num = toJp(num);
-  // 大字では百・千の前に「壱」を明記する（例: 百→壱百、千→壱千）
-  num = num.replace(
-    /(万|億|兆|京|垓|𥝱|穣|溝|澗|正|載|極|恒河沙|阿僧祇|那由他|不可思議|無量大数|^)(百|千)/gu,
-    "$1一$2"
-  );
+  // 大字では算用数字で1になるすべての単位の前に「壱」を明記する
+  // 後年省略されるケースもあったが、ここでは明記する方式を採用
+  num = num.replace(/(?<![一二三四五六七八九])(十|百|千)/gu, "一$1");
+  const othersPattern = jpOthersPlace.filter((p) => p !== "").join("|");
+  num = num.replace(new RegExp(`(?<![一二三四五六七八九十百千])(${othersPattern})`, "gu"), "一$1");
   // 通常の大字変換
   for (let i = 0; i <= 13; i++) {
     let reg = new RegExp(jpDaijiBefore[i], "g");
