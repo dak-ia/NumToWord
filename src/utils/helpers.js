@@ -31,18 +31,10 @@ export const splitNum = (num) => {
     throw new TypeError("Invalid argument: expected a number or string");
   }
   num = convertToStrNum(num);
-  try {
-    let numArray = { integer: "", decimal: "" };
-    numArray.integer = num.split(".")[0] || "";
-    numArray.decimal = num.split(".")[1] || "";
-    return numArray;
-  } catch (e) {
-    if (e instanceof TypeError) {
-      throw new TypeError("Invalid argument: Expected a string");
-    } else {
-      throw new Error("Unknown error");
-    }
-  }
+  let numArray = { integer: "", decimal: "" };
+  numArray.integer = num.split(".")[0];
+  numArray.decimal = num.split(".")[1] || "";
+  return numArray;
 };
 
 export const sliceTo1digitNum = (num) => {
