@@ -6,19 +6,36 @@ export const toSi = (num) => {
   if (numArray.integer.length > (siSymbol.length + 1) * 3) {
     throw new Error("Overflow");
   }
+  numArray.integer = numArray.integer.replace(/^0+/, "") || "0";
+
+  let integerPart, decimalPart, suffix;
+
   if (numArray.integer.length <= 3) {
-    return numArray.integer + "." + numArray.decimal;
+    integerPart = numArray.integer;
+    decimalPart = numArray.decimal;
+    suffix = "";
   } else {
     let integerArray = sliceTo3digitNum(numArray.integer);
-    if (integerArray.length == 2) {
-      return (
-        (Math.round(Number(integerArray[0] + integerArray[1] + "." + numArray.decimal)) / 1000).toString() + siSymbol[0]
-      );
-    } else {
-      return (
-        (Math.round(Number(integerArray[0] + integerArray[1] + "." + integerArray[2])) / 1000).toString() +
-        siSymbol[integerArray.length - 2]
-      );
+    integerPart = integerArray[0];
+    const remainingDigits = integerArray.slice(1).join("");
+    const symbolIndex = integerArray.length - 2;
+
+    // 小数点以下を結合
+    decimalPart = remainingDigits;
+    if (numArray.decimal !== "") {
+      decimalPart = remainingDigits + numArray.decimal;
     }
+    suffix = siSymbol[symbolIndex];
+  }
+
+  // 小数から末尾の0を削除
+  if (decimalPart !== "") {
+    decimalPart = decimalPart.replace(/0+$/, "");
+  }
+
+  if (decimalPart !== "") {
+    return integerPart + "." + decimalPart + suffix;
+  } else {
+    return integerPart + suffix;
   }
 };
