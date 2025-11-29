@@ -1,41 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>NumToWord Test Page</title>
     <script type="text/javascript" src="NumToWord.js"></script>
-</head>
+  </head>
 
-<body>
-    <input type="number" id="text" style="width: 100em;" autofocus>
-    <br>
-    <input type="button" onclick="pressSi()" value="数字をSiへ">
-    <input type="button" onclick="pressEn()" value="数字を英語へ">
-    <input type="button" onclick="pressJp()" value="数字を漢字へ">
-    <input type="button" onclick="pressJpDaiji()" value="数字を大字へ">
-    <br><br>
+  <body>
+    <input type="number" id="text" style="width: 100em" autofocus />
+    <br />
+    <input type="button" onclick="pressSi()" value="数字をSiへ" />
+    <input type="button" onclick="pressEn()" value="数字を英語へ" />
+    <input type="button" onclick="pressJp()" value="数字を漢字へ" />
+    <input type="button" onclick="pressJpDaiji()" value="数字を大字へ" />
+    <br /><br />
     <span id="output"></span>
-</body>
-<script>
+  </body>
+  <script>
     let input = document.getElementById("text");
     let output = document.getElementById("output");
 
     function pressSi() {
-        output.innerText = NumToWord.toSi(input.value);
+      output.innerText = NumToWord.toSi(input.value);
     }
 
     function pressEn() {
-        output.innerText = NumToWord.toEn(input.value);
+      output.innerText = NumToWord.toEn(input.value);
     }
 
     function pressJp() {
-        output.innerText = NumToWord.toJp(input.value);
+      output.innerText = NumToWord.toJp(input.value);
     }
 
     function pressJpDaiji() {
-        output.innerText = NumToWord.toJpDaiji(input.value);
+      output.innerText = NumToWord.toJpDaiji(input.value);
     }
-</script>
-
+  </script>
 </html>

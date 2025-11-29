@@ -113,10 +113,5 @@
     "jpdaiji"
   ],
   "ignoreWords": [],
-  "ignorePaths": [
-    "node_modules",
-    "dist",
-    "coverage",
-    "*.min.js"
-  ]
+  "ignorePaths": ["node_modules", "dist", "coverage", "*.min.js"]
 }
