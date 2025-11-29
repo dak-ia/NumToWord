@@ -4,7 +4,7 @@ import pkg from "./package.json";
 
 export default defineConfig({
   define: {
-    __VERSION__: JSON.stringify(pkg.version),
+    VERSION: JSON.stringify(pkg.version),
   },
   build: {
     lib: {

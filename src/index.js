@@ -4,7 +4,7 @@ import { toJpDaiji } from "./converters/toJpDaiji.js";
 import { toSi } from "./converters/toSi.js";
 import { toLocaleString } from "./converters/toLocaleString.js";
 
-const version = __VERSION__;
+const version = VERSION;
 
 export default {
   version,
