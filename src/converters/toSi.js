@@ -1,5 +1,5 @@
+import { sliceTo3digitNum, splitNum } from "../utils/helpers.js";
 import { siSymbol } from "../dictionaries/si.js";
-import { splitNum, sliceTo3digitNum } from "../utils/helpers.js";
 
 export const toSi = (num) => {
   const numArray = splitNum(num);
@@ -15,7 +15,7 @@ export const toSi = (num) => {
     decimalPart = numArray.decimal;
     suffix = "";
   } else {
-    let integerArray = sliceTo3digitNum(numArray.integer);
+    const integerArray = sliceTo3digitNum(numArray.integer);
     integerPart = integerArray[0];
     const remainingDigits = integerArray.slice(1).join("");
     const symbolIndex = integerArray.length - 2;

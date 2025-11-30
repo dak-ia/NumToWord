@@ -1,7 +1,7 @@
-import { toSi } from "./toSi.js";
 import { toEn } from "./toEn.js";
 import { toJp } from "./toJp.js";
 import { toJpDaiji } from "./toJpDaiji.js";
+import { toSi } from "./toSi.js";
 
 export const toLocaleString = (locale, num) => {
   if (locale == null || locale == undefined || locale == "" || num == null || num == undefined || num == "") {

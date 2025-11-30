@@ -1,4 +1,4 @@
-import { convertToStrNum, splitNum, sliceTo1digitNum, sliceTo3digitNum, sliceTo4digitNum } from "./helpers.js";
+import { convertToStrNum, sliceTo1digitNum, sliceTo3digitNum, sliceTo4digitNum, splitNum } from "./helpers.js";
 
 describe("convertToStrNum", () => {
   test("basic numbers", () => {

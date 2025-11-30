@@ -1,4 +1,4 @@
-import { jpDaijiBefore, jpDaijiAfter, jpOthersPlace } from "../dictionaries/jp.js";
+import { jpDaijiAfter, jpDaijiBefore, jpOthersPlace } from "../dictionaries/jp.js";
 import { toJp } from "./toJp.js";
 
 export const toJpDaiji = (num) => {
@@ -10,7 +10,7 @@ export const toJpDaiji = (num) => {
   num = num.replace(new RegExp(`(?<![一二三四五六七八九十百千])(${othersPattern})`, "gu"), "一$1");
   // 通常の大字変換
   for (let i = 0; i <= 13; i++) {
-    let reg = new RegExp(jpDaijiBefore[i], "g");
+    const reg = new RegExp(jpDaijiBefore[i], "g");
     num = num.replace(reg, jpDaijiAfter[i]);
   }
   return num;

@@ -1,5 +1,5 @@
 import { jpOnesPlace, jpOthersPlace } from "../dictionaries/jp.js";
-import { splitNum, sliceTo1digitNum, sliceTo4digitNum } from "../utils/helpers.js";
+import { sliceTo1digitNum, sliceTo4digitNum, splitNum } from "../utils/helpers.js";
 import { replaceIntUnitJp } from "../utils/replaceIntUnitJp.js";
 
 export const toJp = (num) => {

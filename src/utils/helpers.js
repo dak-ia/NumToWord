@@ -6,14 +6,14 @@ export const convertToStrNum = (num) => {
     })
     .replace(/．/g, ".")
     .replace(/，/g, "")
-    .replace(/\,/g, "")
+    .replace(/,/g, "")
     .replace(/\s/g, "")
     .trim();
   // 小数点のみの入力をチェック
   if (/^\.+$/.test(num)) {
     throw new Error("NaN");
   }
-  if (!RegExp(/[^0-9\.]/).test(num) && (num.match(/\./g) || []).length <= 1) {
+  if (!RegExp(/[^0-9.]/).test(num) && (num.match(/\./g) || []).length <= 1) {
     if (num.slice(0, 1) == ".") {
       num = "0" + num;
     }
@@ -31,7 +31,7 @@ export const splitNum = (num) => {
     throw new TypeError("Invalid argument: expected a number or string");
   }
   num = convertToStrNum(num);
-  let numArray = { integer: "", decimal: "" };
+  const numArray = { integer: "", decimal: "" };
   numArray.integer = num.split(".")[0];
   numArray.decimal = num.split(".")[1] || "";
   return numArray;
@@ -42,8 +42,8 @@ export const sliceTo1digitNum = (num) => {
 };
 
 export const sliceTo3digitNum = (num) => {
-  let result = [];
-  let len = num.length;
+  const result = [];
+  const len = num.length;
   for (let i = 0; i < len; i = i + 3) {
     result.unshift(num.slice(-3));
     num = num.slice(0, -3);
@@ -52,8 +52,8 @@ export const sliceTo3digitNum = (num) => {
 };
 
 export const sliceTo4digitNum = (num) => {
-  let result = [];
-  let len = num.length;
+  const result = [];
+  const len = num.length;
   for (let i = 0; i < len; i = i + 4) {
     result.unshift(num.slice(-4));
     num = num.slice(0, -4);

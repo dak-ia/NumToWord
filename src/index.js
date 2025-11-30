@@ -1,8 +1,8 @@
 import { toEn } from "./converters/toEn.js";
 import { toJp } from "./converters/toJp.js";
 import { toJpDaiji } from "./converters/toJpDaiji.js";
-import { toSi } from "./converters/toSi.js";
 import { toLocaleString } from "./converters/toLocaleString.js";
+import { toSi } from "./converters/toSi.js";
 
 const version = VERSION;
 

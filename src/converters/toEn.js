@@ -1,5 +1,5 @@
 import { enOnesPlace, enOthersPlace } from "../dictionaries/en.js";
-import { splitNum, sliceTo1digitNum, sliceTo3digitNum } from "../utils/helpers.js";
+import { sliceTo1digitNum, sliceTo3digitNum, splitNum } from "../utils/helpers.js";
 import { replaceIntUnitEn } from "../utils/replaceIntUnitEn.js";
 
 export const toEn = (num) => {

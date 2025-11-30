@@ -1,7 +1,7 @@
-import { enOnesPlace, enTens, enTensPlace, enHundredsPlace } from "../dictionaries/en.js";
+import { enHundredsPlace, enOnesPlace, enTens, enTensPlace } from "../dictionaries/en.js";
 
 export const replaceIntUnitEn = (num) => {
-  let numArray = num.split("");
+  const numArray = num.split("");
   if (numArray.length > 3) {
     throw new Error("Overflow");
   }

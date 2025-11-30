@@ -1,5 +1,4 @@
 import { defineConfig } from "vite";
-import { resolve } from "path";
 import pkg from "./package.json";
 
 export default defineConfig({
@@ -8,7 +7,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, "src/index.js"),
+      entry: "./src/index.js",
       name: "NumToWord",
       formats: ["es", "cjs"],
       fileName: (format) => `NumToWord.${format === "es" ? "mjs" : "cjs"}`,
