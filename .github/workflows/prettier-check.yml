@@ -1,4 +1,4 @@
-name: Check Prettier
+name: Prettier Check
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  prettier-check:
     runs-on: ubuntu-latest
 
     steps:

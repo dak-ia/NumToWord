@@ -1,4 +1,4 @@
-name: Check ESLint
+name: ESLint Check
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  eslint-check:
     runs-on: ubuntu-latest
 
     steps:

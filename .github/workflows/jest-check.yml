@@ -1,0 +1,52 @@
+name: Jest Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  jest-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # v6
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3
+
+      # v6
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903
+        with:
+          node-version-file: .tool-versions
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Update coverage badge in Gist
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # カバレッジ率を計算
+          COVERAGE=$(node -e "
+            const c = require('./coverage/coverage-summary.json');
+            const t = c.total;
+            const coverage = Math.round((t.lines.pct + t.statements.pct + t.functions.pct + t.branches.pct) / 4);
+            console.log(coverage);
+          ")
+
+          # 色を決定
+          if [ $COVERAGE -ge 80 ]; then COLOR="brightgreen"
+          elif [ $COVERAGE -ge 60 ]; then COLOR="yellow"
+          else COLOR="red"
+          fi
+
+          echo "Coverage: $COVERAGE% (Color: $COLOR)"
+
+          # Gistを更新
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.GIST_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/gists/1bf4a4df60ed549dfd9a42b24c72045e \
+            -d "{\"files\":{\"num-to-word-coverage.json\":{\"content\":\"{\\\"coverage\\\":$COVERAGE,\\\"color\\\":\\\"$COLOR\\\"}\"}}}"
