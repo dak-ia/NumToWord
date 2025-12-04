@@ -25,12 +25,32 @@ jobs:
       - name: Run tests with coverage
         run: npm run test:coverage
 
-      - name: Update coverage badge in Gist
+      - name: Upload coverage summary
         if: github.ref == 'refs/heads/main'
+        # v5
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        with:
+          name: coverage-summary
+          path: coverage/coverage-summary.json
+          retention-days: 1
+
+  update-badge:
+    needs: jest-check
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download coverage summary
+        #v6
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53
+        with:
+          name: coverage-summary
+
+      - name: Update coverage badge in Gist
         run: |
           # カバレッジ率を計算
           COVERAGE=$(node -e "
-            const c = require('./coverage/coverage-summary.json');
+            const c = require('./coverage-summary.json');
             const t = c.total;
             const coverage = Math.round((t.lines.pct + t.statements.pct + t.functions.pct + t.branches.pct) / 4);
             console.log(coverage);

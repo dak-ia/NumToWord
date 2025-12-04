@@ -4,6 +4,7 @@ export default {
   coverageDirectory: "coverage",
   collectCoverageFrom: ["src/**/*.{js,jsx}", "!**/node_modules/**", "!**/dist/**", "!**/coverage/**"],
   testMatch: ["**/__tests__/**/*.test.js", "**/?(*.)+(spec|test).js"],
+  coverageReporters: ["text", "lcov", "clover", "json-summary"],
   coverageThreshold: {
     global: {
       branches: 100,
