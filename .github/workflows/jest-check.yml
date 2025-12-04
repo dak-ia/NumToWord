@@ -24,3 +24,29 @@ jobs:
 
       - name: Run tests with coverage
         run: npm run test:coverage
+
+      - name: Update coverage badge in Gist
+        if: github.ref == 'refs/heads/main'
+        run: |
+          # カバレッジ率を計算
+          COVERAGE=$(node -e "
+            const c = require('./coverage/coverage-summary.json');
+            const t = c.total;
+            const coverage = Math.round((t.lines.pct + t.statements.pct + t.functions.pct + t.branches.pct) / 4);
+            console.log(coverage);
+          ")
+
+          # 色を決定
+          if [ $COVERAGE -ge 80 ]; then COLOR="brightgreen"
+          elif [ $COVERAGE -ge 60 ]; then COLOR="yellow"
+          else COLOR="red"
+          fi
+
+          echo "Coverage: $COVERAGE% (Color: $COLOR)"
+
+          # Gistを更新
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.GIST_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/gists/1bf4a4df60ed549dfd9a42b24c72045e \
+            -d "{\"files\":{\"num-to-word-coverage.json\":{\"content\":\"{\\\"coverage\\\":$COVERAGE,\\\"color\\\":\\\"$COLOR\\\"}\"}}}"
