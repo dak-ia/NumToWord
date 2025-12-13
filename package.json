@@ -71,8 +71,8 @@
       "prettier --write",
       "eslint . --fix"
     ],
-    "**/*.{ts,tsx}": [
-      "npm run tsc"
+    "src/**/*.{ts,tsx}": [
+      "bash -c 'tsc --noEmit --project tsconfig.json'"
     ]
   }
 }

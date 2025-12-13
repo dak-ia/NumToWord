@@ -1,4 +1,4 @@
-import { toLocaleString } from "./toLocaleString.js";
+import { toLocaleString } from "./toLocaleString";
 
 describe("toLocaleString", () => {
   test("routes to Si converter", () => {

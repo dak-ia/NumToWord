@@ -1,8 +1,8 @@
-import { jpOnesPlace, jpOthersPlace } from "../dictionaries/jp.js";
-import { sliceTo1digitNum, sliceTo4digitNum, splitNum } from "../utils/helpers.js";
-import { replaceIntUnitJp } from "../utils/replaceIntUnitJp.js";
+import { jpOnesPlace, jpOthersPlace } from "../dictionaries/jp";
+import { sliceTo1digitNum, sliceTo4digitNum, splitNum } from "../utils/helpers";
+import { replaceIntUnitJp } from "../utils/replaceIntUnitJp";
 
-export const toJp = (num) => {
+export const toJp = (num: number | string): string => {
   const numArray = splitNum(num);
   if (numArray.integer.length > jpOthersPlace.length * 4) {
     throw new Error("Overflow");
@@ -23,10 +23,12 @@ export const toJp = (num) => {
       if (num != "0" && num != "00" && num != "000" && num != "0000") {
         return replaceIntUnitJp(num) + jpOthersPlace[i];
       }
+      return undefined;
     })
-    .reverse();
+    .reverse()
+    .filter((item): item is string => item !== undefined);
   decimalArray = decimalArray.map((num) => {
-    return jpOnesPlace[num];
+    return jpOnesPlace[Number(num)];
   });
 
   let integerPart = integerArray.join("");

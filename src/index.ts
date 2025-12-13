@@ -1,10 +1,12 @@
-import { toEn } from "./converters/toEn.js";
-import { toJp } from "./converters/toJp.js";
-import { toJpDaiji } from "./converters/toJpDaiji.js";
-import { toLocaleString } from "./converters/toLocaleString.js";
-import { toSi } from "./converters/toSi.js";
+import { toEn } from "./converters/toEn";
+import { toJp } from "./converters/toJp";
+import { toJpDaiji } from "./converters/toJpDaiji";
+import { toLocaleString } from "./converters/toLocaleString";
+import { toSi } from "./converters/toSi";
 
-const version = VERSION;
+declare const VERSION: string;
+
+const version: string = VERSION;
 
 export default {
   version,

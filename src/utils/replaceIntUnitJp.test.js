@@ -1,4 +1,4 @@
-import { replaceIntUnitJp } from "./replaceIntUnitJp.js";
+import { replaceIntUnitJp } from "./replaceIntUnitJp";
 
 describe("replaceIntUnitJp", () => {
   test("basic numerals", () => {

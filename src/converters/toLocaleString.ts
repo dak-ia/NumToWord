@@ -1,14 +1,14 @@
-import { toEn } from "./toEn.js";
-import { toJp } from "./toJp.js";
-import { toJpDaiji } from "./toJpDaiji.js";
-import { toSi } from "./toSi.js";
+import { toEn } from "./toEn";
+import { toJp } from "./toJp";
+import { toJpDaiji } from "./toJpDaiji";
+import { toSi } from "./toSi";
 
-export const toLocaleString = (locale, num) => {
+export const toLocaleString = (locale: string, num: number | string): string => {
   if (locale == null || locale == undefined || locale == "" || num == null || num == undefined || num == "") {
     throw new TypeError("Invalid argument: expected a number or string");
   }
 
-  const localeLower = locale.toLowerCase();
+  const localeLower: string = locale.toLowerCase();
 
   if (localeLower == "si") {
     return toSi(num);

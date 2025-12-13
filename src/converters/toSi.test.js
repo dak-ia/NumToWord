@@ -1,4 +1,4 @@
-import { toSi } from "./toSi.js";
+import { toSi } from "./toSi";
 
 describe("toSi", () => {
   test("numbers less than 1000", () => {

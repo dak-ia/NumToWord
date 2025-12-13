@@ -1,4 +1,4 @@
-import { toJpDaiji } from "./toJpDaiji.js";
+import { toJpDaiji } from "./toJpDaiji";
 
 describe("toJpDaiji", () => {
   test("basic numerals", () => {
