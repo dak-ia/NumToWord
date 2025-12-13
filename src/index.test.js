@@ -1,4 +1,4 @@
-import NumToWord from "./index.js";
+import NumToWord from "./index";
 
 describe("index", () => {
   test("exports version", () => {

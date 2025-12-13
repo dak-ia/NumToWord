@@ -1,4 +1,4 @@
-import { toJp } from "./toJp.js";
+import { toJp } from "./toJp";
 
 describe("toJp", () => {
   test("basic numerals", () => {

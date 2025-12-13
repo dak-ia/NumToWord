@@ -1,4 +1,4 @@
-import { toEn } from "./toEn.js";
+import { toEn } from "./toEn";
 
 describe("toEn", () => {
   test("basic numerals", () => {

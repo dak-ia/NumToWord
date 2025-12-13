@@ -1,6 +1,17 @@
-export const enOnesPlace = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+export const enOnesPlace: readonly string[] = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+];
 
-export const enTens = [
+export const enTens: readonly string[] = [
   "ten",
   "eleven",
   "twelve",
@@ -13,11 +24,22 @@ export const enTens = [
   "nineteen",
 ];
 
-export const enTensPlace = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+export const enTensPlace: readonly string[] = [
+  "",
+  "",
+  "twenty",
+  "thirty",
+  "forty",
+  "fifty",
+  "sixty",
+  "seventy",
+  "eighty",
+  "ninety",
+];
 
-export const enHundredsPlace = ["hundred"];
+export const enHundredsPlace: readonly string[] = ["hundred"];
 
-export const enOthersPlace = {
+export const enOthersPlace: Readonly<Record<number, string>> = {
   0: "",
   3: "Thousand",
   6: "Million",

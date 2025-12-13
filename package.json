@@ -23,26 +23,28 @@
   },
   "license": "MIT",
   "author": "dak-ia",
-  "main": "./dist/NumToWord.cjs",
-  "module": "./dist/NumToWord.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "unpkg": "./dist/index.umd.js",
+  "jsdelivr": "./dist/index.umd.js",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "require": "./dist/NumToWord.cjs",
-      "import": "./dist/NumToWord.mjs"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     }
   },
   "files": [
     "dist",
-    "index.d.ts",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build && tsc",
     "preview": "vite preview",
     "prepublishOnly": "npm run build",
+    "tsc": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -53,18 +55,24 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "vite": "^7.2.2",
-    "eslint": "^9.39.1",
-    "jest": "^29.7.0",
     "@swc/jest": "^0.2.39",
-    "prettier": "^3.6.2",
+    "@types/jest": "30.0.0",
+    "eslint": "^9.39.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.2.6"
+    "jest": "^29.7.0",
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2",
+    "typescript": "5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vite": "^7.2.2"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json,md,html,css,scss}": [
       "prettier --write",
       "eslint . --fix"
+    ],
+    "src/**/*.{ts,tsx}": [
+      "bash -c 'tsc --noEmit --project tsconfig.json'"
     ]
   }
 }

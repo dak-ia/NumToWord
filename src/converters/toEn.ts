@@ -1,8 +1,8 @@
-import { enOnesPlace, enOthersPlace } from "../dictionaries/en.js";
-import { sliceTo1digitNum, sliceTo3digitNum, splitNum } from "../utils/helpers.js";
-import { replaceIntUnitEn } from "../utils/replaceIntUnitEn.js";
+import { enOnesPlace, enOthersPlace } from "../dictionaries/en";
+import { sliceTo1digitNum, sliceTo3digitNum, splitNum } from "../utils/helpers";
+import { replaceIntUnitEn } from "../utils/replaceIntUnitEn";
 
-export const toEn = (num) => {
+export const toEn = (num: number | string): string => {
   const numArray = splitNum(num);
   if (numArray.integer.length > (Object.values(enOthersPlace).length - 1) * 3) {
     throw new Error("Overflow");
@@ -29,7 +29,7 @@ export const toEn = (num) => {
   }
   integerArray = integerArray.filter((num) => num != "");
   decimalArray = decimalArray.map((num) => {
-    return enOnesPlace[num];
+    return enOnesPlace[Number(num)];
   });
   if (decimalArray.length > 0) {
     const result = (integerArray.join(" ").trim() + " point " + decimalArray.join(" ").trim()).trim();

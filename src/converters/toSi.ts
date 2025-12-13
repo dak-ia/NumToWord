@@ -1,24 +1,24 @@
-import { sliceTo3digitNum, splitNum } from "../utils/helpers.js";
-import { siSymbol } from "../dictionaries/si.js";
+import { sliceTo3digitNum, splitNum } from "../utils/helpers";
+import { siSymbol } from "../dictionaries/si";
 
-export const toSi = (num) => {
+export const toSi = (num: number | string): string => {
   const numArray = splitNum(num);
   if (numArray.integer.length > (siSymbol.length + 1) * 3) {
     throw new Error("Overflow");
   }
   numArray.integer = numArray.integer.replace(/^0+/, "") || "0";
 
-  let integerPart, decimalPart, suffix;
+  let integerPart: string, decimalPart: string, suffix: string;
 
   if (numArray.integer.length <= 3) {
     integerPart = numArray.integer;
     decimalPart = numArray.decimal;
     suffix = "";
   } else {
-    const integerArray = sliceTo3digitNum(numArray.integer);
+    const integerArray: string[] = sliceTo3digitNum(numArray.integer);
     integerPart = integerArray[0];
-    const remainingDigits = integerArray.slice(1).join("");
-    const symbolIndex = integerArray.length - 2;
+    const remainingDigits: string = integerArray.slice(1).join("");
+    const symbolIndex: number = integerArray.length - 2;
 
     // 小数点以下を結合
     decimalPart = remainingDigits;
