@@ -3,7 +3,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>NumToWord Test Page</title>
-    <script type="text/javascript" src="NumToWord.js"></script>
+    <!-- ビルド済みUMD (本番用) -->
+    <script src="../dist/index.umd.js"></script>
+    <!-- 開発サーバー用フォールバック -->
+    <script type="module">
+      if (!window.NumToWord) {
+        const module = await import("../src/index.ts");
+        window.NumToWord = module.default;
+      }
+    </script>
   </head>
 
   <body>

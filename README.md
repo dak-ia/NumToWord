@@ -17,6 +17,7 @@ Convert numbers to words in multiple languages (English, Japanese, SI prefixes).
 - [📚 API リファレンス / API Reference](#apiリファレンス--api-reference)
 - [📝 入力形式 / Input Format](#入力形式--input-format)
 - [💻 TypeScript サポート / TypeScript Support](#typescript-サポート--typescript-support)
+- [🎨 Examples](#examples)
 - [🛠️ 開発 / Development](#開発--development)
 
 ---
@@ -156,6 +157,22 @@ TypeScript definitions are included.
 import NumToWord from "num-to-word";
 
 const result: string = NumToWord.toEn(123);
+```
+
+## 🎨 Examples
+
+ブラウザでの動作を確認できるデモファイルが含まれています。
+
+An example HTML file is included to test the library in a browser.
+
+```bash
+# ビルド後、ブラウザで開く / Build and open in browser
+npm run build
+open examples/index.html
+
+# または開発サーバーで確認 / Or use dev server
+npm run dev
+# http://localhost:5173/examples/
 ```
 
 ## 🛠️ 開発 / Development
