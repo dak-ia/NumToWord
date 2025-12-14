@@ -1,8 +1,4 @@
-import { toEn } from "./converters/toEn";
-import { toJp } from "./converters/toJp";
-import { toJpDaiji } from "./converters/toJpDaiji";
-import { toLocaleString } from "./converters/toLocaleString";
-import { toSi } from "./converters/toSi";
+import { toEn, toJp, toJpDaiji, toLocaleString, toSi } from "./converters";
 
 declare const VERSION: string;
 

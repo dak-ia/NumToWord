@@ -1,4 +1,4 @@
-import { enHundredsPlace, enOnesPlace, enTens, enTensPlace } from "../dictionaries/en";
+import { enHundredsPlace, enOnesPlace, enTens, enTensPlace } from "../dictionaries";
 
 export const replaceIntUnitEn = (num: string): string => {
   const numArray: string[] = num.split("");

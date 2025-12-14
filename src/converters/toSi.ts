@@ -1,5 +1,5 @@
-import { sliceTo3digitNum, splitNum } from "../utils/helpers";
-import { siSymbol } from "../dictionaries/si";
+import { sliceTo3digitNum, splitNum } from "../utils";
+import { siSymbol } from "../dictionaries";
 
 export const toSi = (num: number | string): string => {
   const numArray = splitNum(num);

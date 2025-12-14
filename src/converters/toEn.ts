@@ -1,6 +1,5 @@
-import { enOnesPlace, enOthersPlace } from "../dictionaries/en";
-import { sliceTo1digitNum, sliceTo3digitNum, splitNum } from "../utils/helpers";
-import { replaceIntUnitEn } from "../utils/replaceIntUnitEn";
+import { enOnesPlace, enOthersPlace } from "../dictionaries";
+import { replaceIntUnitEn, sliceTo1digitNum, sliceTo3digitNum, splitNum } from "../utils";
 
 export const toEn = (num: number | string): string => {
   const numArray = splitNum(num);

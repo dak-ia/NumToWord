@@ -1,4 +1,4 @@
-import { jpDaijiAfter, jpDaijiBefore, jpOthersPlace } from "../dictionaries/jp";
+import { jpDaijiAfter, jpDaijiBefore, jpOthersPlace } from "../dictionaries";
 import { toJp } from "./toJp";
 
 export const toJpDaiji = (num: number | string): string => {

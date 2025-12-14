@@ -1,4 +1,4 @@
-import { jpOnesPlace, jpTHT } from "../dictionaries/jp";
+import { jpOnesPlace, jpTHT } from "../dictionaries";
 
 export const replaceIntUnitJp = (num: string): string => {
   const numArray: string[] = num.split("").reverse();

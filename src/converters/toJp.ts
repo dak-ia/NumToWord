@@ -1,6 +1,5 @@
-import { jpOnesPlace, jpOthersPlace } from "../dictionaries/jp";
-import { sliceTo1digitNum, sliceTo4digitNum, splitNum } from "../utils/helpers";
-import { replaceIntUnitJp } from "../utils/replaceIntUnitJp";
+import { jpOnesPlace, jpOthersPlace } from "../dictionaries";
+import { replaceIntUnitJp, sliceTo1digitNum, sliceTo4digitNum, splitNum } from "../utils";
 
 export const toJp = (num: number | string): string => {
   const numArray = splitNum(num);
