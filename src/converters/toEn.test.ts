@@ -159,7 +159,9 @@ describe("toEn", () => {
     expect(() => toEn("1" + "0".repeat(309))).toThrow("Overflow");
     expect(() => toEn("abc")).toThrow("NaN");
     expect(() => toEn("")).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toEn(null)).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toEn(undefined)).toThrow("Invalid argument");
     expect(() => toEn("-1")).toThrow();
     expect(() => toEn("-123")).toThrow();

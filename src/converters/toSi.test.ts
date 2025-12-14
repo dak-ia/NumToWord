@@ -45,7 +45,9 @@ describe("toSi", () => {
     expect(() => toSi("1" + "0".repeat(33))).toThrow("Overflow");
     expect(() => toSi("abc")).toThrow("NaN");
     expect(() => toSi("")).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toSi(null)).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toSi(undefined)).toThrow("Invalid argument");
     expect(() => toSi("-1")).toThrow();
     expect(() => toSi("-123")).toThrow();

@@ -31,13 +31,17 @@ describe("toLocaleString", () => {
     expect(() => toLocaleString("invalid", "123")).toThrow("Invalid locale");
     expect(() => toLocaleString("fr", "123")).toThrow("Invalid locale");
     expect(() => toLocaleString("", "123")).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toLocaleString(null, "123")).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toLocaleString(undefined, "123")).toThrow("Invalid argument");
   });
 
   test("throws error for empty number", () => {
     expect(() => toLocaleString("en", "")).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toLocaleString("en", null)).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toLocaleString("en", undefined)).toThrow("Invalid argument");
   });
 });
