@@ -150,7 +150,9 @@ describe("toJp", () => {
     expect(() => toJp("1" + "0".repeat(73))).toThrow("Overflow");
     expect(() => toJp("abc")).toThrow("NaN");
     expect(() => toJp("")).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toJp(null)).toThrow("Invalid argument");
+    // @ts-expect-error - Testing invalid input
     expect(() => toJp(undefined)).toThrow("Invalid argument");
     expect(() => toJp("-1")).toThrow();
     expect(() => toJp("-123")).toThrow();
