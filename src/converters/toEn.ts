@@ -1,6 +1,15 @@
 import { enOnesPlace, enOthersPlace } from "../dictionaries";
 import { replaceIntUnitEn, sliceTo1digitNum, sliceTo3digitNum, splitNum } from "../utils";
 
+/**
+ * Converts a number to its English word representation.
+ * @param num - The number to convert (number or string)
+ * @returns The English word representation of the number
+ * @throws {Error} If the number is too large (Overflow) or invalid (NaN)
+ * @example
+ * toEn(123) // "One Hundred Twenty Three"
+ * toEn("1234.56") // "One Thousand Two Hundred Thirty Four Point Five Six"
+ */
 export const toEn = (num: number | string): string => {
   const numArray = splitNum(num);
   if (numArray.integer.length > (Object.values(enOthersPlace).length - 1) * 3) {

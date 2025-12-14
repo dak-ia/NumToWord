@@ -16,5 +16,6 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["**/*.test.js", "**/*.test.ts"]
 }

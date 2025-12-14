@@ -1,6 +1,15 @@
 import { sliceTo3digitNum, splitNum } from "../utils";
 import { siSymbol } from "../dictionaries";
 
+/**
+ * Converts a number to its SI (International System of Units) prefix notation.
+ * @param num - The number to convert (number or string)
+ * @returns The number in SI prefix notation
+ * @throws {Error} If the number is too large (Overflow) or invalid (NaN)
+ * @example
+ * toSi(1234) // "1.234K"
+ * toSi(1234567) // "1.234567M"
+ */
 export const toSi = (num: number | string): string => {
   const numArray = splitNum(num);
   if (numArray.integer.length > (siSymbol.length + 1) * 3) {

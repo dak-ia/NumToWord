@@ -1,5 +1,15 @@
 import { enHundredsPlace, enOnesPlace, enTens, enTensPlace } from "../dictionaries";
 
+/**
+ * Converts a 1-3 digit number string to English words.
+ * Internal utility for toEn converter.
+ * @param num - A number string with 1-3 digits
+ * @returns The English word representation
+ * @throws {Error} If the number has more than 3 digits (Overflow)
+ * @example
+ * replaceIntUnitEn("123") // "One Hundred Twenty Three"
+ * replaceIntUnitEn("45") // "Forty Five"
+ */
 export const replaceIntUnitEn = (num: string): string => {
   const numArray: string[] = num.split("");
   if (numArray.length > 3) {

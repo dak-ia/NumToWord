@@ -1,6 +1,15 @@
 import { jpOnesPlace, jpOthersPlace } from "../dictionaries";
 import { replaceIntUnitJp, sliceTo1digitNum, sliceTo4digitNum, splitNum } from "../utils";
 
+/**
+ * Converts a number to its Japanese word representation using standard kanji.
+ * @param num - The number to convert (number or string)
+ * @returns The Japanese word representation of the number
+ * @throws {Error} If the number is too large (Overflow) or invalid (NaN)
+ * @example
+ * toJp(123) // "百二十三"
+ * toJp("1234.56") // "千二百三十四点五六"
+ */
 export const toJp = (num: number | string): string => {
   const numArray = splitNum(num);
   if (numArray.integer.length > jpOthersPlace.length * 4) {
