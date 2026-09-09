@@ -52,7 +52,8 @@ export const numToWord = (locale: string, number: number | string, letterCase?: 
   if (!entry) {
     throw new InvalidLocaleError();
   }
-  if (entry.rejectsLetterCase && letterCase !== undefined) {
+  // 変換側で既定値や可変長引数を使うと引数の数が変わり、この判定がサイレントに壊れる
+  if (letterCase !== undefined && entry.fn.length < 2) {
     throw new InvalidArgumentError("Letter case is not supported for this conversion.");
   }
   return entry.fn(number, letterCase);
@@ -60,14 +61,14 @@ export const numToWord = (locale: string, number: number | string, letterCase?: 
 
 type LocaleEntry = {
   keys: string[];
+  // メソッド構文にすると引数が双変になり、number|stringを受け取らない関数まで通ってしまう
   fn: (_: number | string, _letterCase?: LetterCase) => string;
-  rejectsLetterCase?: boolean;
 };
 export const localeMap: LocaleEntry[] = [
-  { keys: ["si"], fn: numToSi, rejectsLetterCase: true },
-  { keys: ["en", "english"], fn: numToEnglish, rejectsLetterCase: true },
-  { keys: ["jp", "japanese", "kanji"], fn: numToJapanese, rejectsLetterCase: true },
-  { keys: ["jpdaiji", "daiji"], fn: numToDaiji, rejectsLetterCase: true },
+  { keys: ["si"], fn: numToSi },
+  { keys: ["en", "english"], fn: numToEnglish },
+  { keys: ["jp", "japanese", "kanji"], fn: numToJapanese },
+  { keys: ["jpdaiji", "daiji"], fn: numToDaiji },
   { keys: ["en-digits", "english-digits"], fn: numToEnglishDigits },
   { keys: ["jp-digits", "japanese-digits", "kanji-digits"], fn: numToJapaneseDigits },
   { keys: ["jpdaiji-digits", "daiji-digits"], fn: numToDaijiDigits },
