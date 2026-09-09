@@ -12,6 +12,7 @@ import { LetterCase } from "../constants";
  * @returns Digit-by-digit representation
  * @throws {InvalidArgumentError} If not a number or string, or if letterCase is unsupported by the language or not a supported value
  * @throws {InvalidInputError} If empty, or not a valid number or exponential notation
+ * @throws {OverflowError} If the expanded number is too large to convert
  */
 export const replaceDigits = (number: number | string, words: DigitWords, letterCase?: LetterCase): string => {
   if (letterCase !== undefined) {
@@ -44,15 +45,28 @@ const applyLetterCase = (value: string, words: DigitWords, letterCase?: LetterCa
     return value;
   }
   const mode = letterCase ?? words.letterCase;
+  // ロケール未指定でtoLocaleUpperCaseを呼ぶと実行環境のロケールが効いてしまう
   const locale = words.caseLocale?.[mode];
   switch (mode) {
     case LetterCase.upper:
       return locale === undefined ? value.toUpperCase() : value.toLocaleUpperCase(locale);
     case LetterCase.lower:
       return locale === undefined ? value.toLowerCase() : value.toLocaleLowerCase(locale);
-    default: {
-      const head = locale === undefined ? value.slice(0, 1).toUpperCase() : value.slice(0, 1).toLocaleUpperCase(locale);
-      return head + value.slice(1);
-    }
+    case LetterCase.capitalize:
+      return capitalize(value, locale);
   }
+};
+
+// 先頭が大小を持たない文字ならば大文字変換をしても何も変わらない
+/** @internal */
+const capitalize = (value: string, locale: string | undefined): string => {
+  let at = 0;
+  for (const char of value) {
+    if (char.toLowerCase() !== char.toUpperCase()) {
+      const head = locale === undefined ? char.toUpperCase() : char.toLocaleUpperCase(locale);
+      return value.slice(0, at) + head + value.slice(at + char.length);
+    }
+    at += char.length;
+  }
+  return value;
 };
