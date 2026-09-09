@@ -32,6 +32,13 @@ export default [
     },
   },
   {
+    files: ["scripts/**/*.ts"],
+    rules: {
+      // 生成コマンドなので結果を出力する
+      "no-console": "off",
+    },
+  },
+  {
     files: ["**/*.test.js", "**/*.spec.js", "**/*.test.ts", "**/*.spec.ts"],
     languageOptions: {
       globals: {

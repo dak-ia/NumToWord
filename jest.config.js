@@ -1,8 +1,19 @@
+// prettierがCJSの中で動的importするので、npm testは--experimental-vm-modules付きで起動している
 export default {
   testEnvironment: "node",
   maxWorkers: "50%",
   coverageDirectory: "coverage",
-  collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}", "!**/node_modules/**", "!**/dist/**", "!**/coverage/**"],
+  collectCoverageFrom: [
+    "src/**/*.{js,jsx,ts,tsx}",
+    "scripts/**/*.ts",
+    "!**/*.test.ts",
+    // jestからは実行できないので、CIのgenerate:checkで動かして確認する
+    "!scripts/generate.ts",
+    "!scripts/loadDictionaries.ts",
+    "!**/node_modules/**",
+    "!**/dist/**",
+    "!**/coverage/**",
+  ],
   testMatch: ["**/__tests__/**/*.test.{js,ts}", "**/?(*.)+(spec|test).{js,ts}"],
   coverageReporters: ["text", "lcov", "clover", "json-summary"],
   coverageThreshold: {

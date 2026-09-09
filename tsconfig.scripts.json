@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "emitDeclarationOnly": false,
+    "declaration": false,
+    "allowImportingTsExtensions": true,
+    "types": ["node", "jest"],
+    "erasableSyntaxOnly": true
+  },
+  "include": ["scripts/**/*"],
+  "exclude": []
+}

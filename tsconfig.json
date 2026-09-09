@@ -5,6 +5,7 @@
     "lib": ["ESNext"],
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "types": [],
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./dist",
