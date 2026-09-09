@@ -1,5 +1,13 @@
 export { enOnesPlace, enTens, enTensPlace, enHundredsPlace, enLargeUnits, enDigitWords } from "./en";
-export { jpOnesPlace, jpBasicUnits, jpLargeUnits, jpDaijiBefore, jpDaijiAfter, jpDigitWords } from "./jp";
+export {
+  jpOnesPlace,
+  jpBasicUnits,
+  jpLargeUnits,
+  jpDaijiBefore,
+  jpDaijiAfter,
+  jpDigitWords,
+  jpDaijiDigitWords,
+} from "./jp";
 export { siSymbols } from "./si";
 export { arDigitWords } from "./ar";
 export { bnDigitWords } from "./bn";
