@@ -1,5 +1,39 @@
 import { InvalidArgumentError, InvalidInputError, InvalidLocaleError } from "../errors";
 import { localeMap, numToWord } from "./numToWord";
+import { LetterCase } from "../constants";
+
+// numToWordは引数の数で対応の有無を見分けるので、期待値をそこから作ると同じ壊れ方をして緑のままになる
+const APPLIES_LETTER_CASE = [
+  "en-digits",
+  "nl-digits",
+  "fr-digits",
+  "de-digits",
+  "el-digits",
+  "id-digits",
+  "it-digits",
+  "pl-digits",
+  "pt-digits",
+  "ru-digits",
+  "es-digits",
+  "tr-digits",
+  "vi-digits",
+  "roman-digits",
+];
+
+const REJECTS_LETTER_CASE = [
+  "si",
+  "en",
+  "jp",
+  "jpdaiji",
+  "jp-digits",
+  "jpdaiji-digits",
+  "ar-digits",
+  "bn-digits",
+  "zh-digits",
+  "hi-digits",
+  "ko-digits",
+  "th-digits",
+];
 
 describe("numToWord", () => {
   test("routes to Si converter", () => {
@@ -91,13 +125,26 @@ describe("numToWord", () => {
     expect(numToWord("roman-digits", "0123", "lower")).toBe("n i ii iii");
   });
 
-  test("throws error when the conversion has no letter case", () => {
-    expect(() => numToWord("jp-digits", "0123", "upper")).toThrow(InvalidArgumentError);
-    expect(() => numToWord("ar-digits", "0123", "upper")).toThrow(InvalidArgumentError);
-    expect(() => numToWord("si", "1000", "upper")).toThrow(InvalidArgumentError);
-    expect(() => numToWord("en", "123", "upper")).toThrow(InvalidArgumentError);
-    expect(() => numToWord("jp", "123", "upper")).toThrow(InvalidArgumentError);
-    expect(() => numToWord("daiji", "123", "upper")).toThrow(InvalidArgumentError);
+  test("rejects a letter case for every conversion that has none", () => {
+    for (const locale of REJECTS_LETTER_CASE) {
+      expect(() => numToWord(locale, "0123", LetterCase.upper)).toThrow(InvalidArgumentError);
+      expect(() => numToWord(locale, "0123", LetterCase.upper)).toThrow(
+        "Letter case is not supported for this conversion."
+      );
+    }
+  });
+
+  test("applies the letter case for every conversion that has one", () => {
+    const ignored = APPLIES_LETTER_CASE.filter(
+      (locale) => numToWord(locale, "12", LetterCase.upper) === numToWord(locale, "12", LetterCase.lower)
+    );
+    expect(ignored).toEqual([]);
+  });
+
+  test("classifies every locale as applying or rejecting a letter case", () => {
+    const covered = [...APPLIES_LETTER_CASE, ...REJECTS_LETTER_CASE];
+    const uncovered = localeMap.map(({ keys }) => keys[0]).filter((locale) => !covered.includes(locale));
+    expect(uncovered).toEqual([]);
   });
 
   test("throws error for unsupported locale", () => {

@@ -2,9 +2,10 @@
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![Node.js for development](<https://img.shields.io/badge/node%20(dev)-%3E%3D22.18.0-brightgreen.svg>)](https://nodejs.org/)
 [![Coverage](https://img.shields.io/badge/dynamic/json?url=https://gist.githubusercontent.com/dak-ia/1bf4a4df60ed549dfd9a42b24c72045e/raw/num-to-word-coverage.json&label=coverage&query=$.coverage&suffix=%25&color=brightgreen)](https://github.com/dak-ia/num-to-word/actions/workflows/jest-check.yml)
 
-数字を各言語の単語に変換します（英語、日本語、SI 接頭語）。
+数字を各言語の単語に変換します（英語、日本語、SI接頭語）。
 
 Convert numbers to words in multiple languages (English, Japanese, SI prefixes).
 
@@ -271,6 +272,17 @@ npm run build         # ビルドを実行 / Build the project
 npm test              # 全テストを実行 / Run all tests
 npm run test:watch    # ウォッチモードでテストを実行 / Run tests in watch mode
 npm run test:coverage # カバレッジレポート付きでテストを実行 / Run tests with coverage report
+```
+
+### 桁読み変換の生成 / Generating the Digit Converters
+
+`src/converters/digits/`以下の`numTo***Digits`は`src/dictionaries/`の辞書から自動生成しています。手で編集せず、辞書を足したり直したりしたあとに生成し直してください。
+
+The `numTo***Digits` functions under `src/converters/digits/` are generated from the dictionaries in `src/dictionaries/`. Do not edit them by hand; regenerate after adding or changing a dictionary.
+
+```bash
+npm run generate       # 辞書から桁読み変換を生成 / Generate the converters from the dictionaries
+npm run generate:check # 生成物が辞書と一致するか確認 / Check the generated files match the dictionaries
 ```
 
 ---

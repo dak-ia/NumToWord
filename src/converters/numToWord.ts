@@ -1,31 +1,33 @@
 import { InvalidArgumentError, InvalidLocaleError } from "../errors";
+import {
+  numToArabicDigits,
+  numToBengaliDigits,
+  numToChineseDigits,
+  numToDaijiDigits,
+  numToDutchDigits,
+  numToEnglishDigits,
+  numToFrenchDigits,
+  numToGermanDigits,
+  numToGreekDigits,
+  numToHindiDigits,
+  numToIndonesianDigits,
+  numToItalianDigits,
+  numToJapaneseDigits,
+  numToKoreanDigits,
+  numToPolishDigits,
+  numToPortugueseDigits,
+  numToRomanDigits,
+  numToRussianDigits,
+  numToSpanishDigits,
+  numToThaiDigits,
+  numToTurkishDigits,
+  numToVietnameseDigits,
+} from "./digits";
 import { LetterCase } from "../constants";
-import { numToArabicDigits } from "./numToArabicDigits";
-import { numToBengaliDigits } from "./numToBengaliDigits";
-import { numToChineseDigits } from "./numToChineseDigits";
 import { numToDaiji } from "./numToDaiji";
-import { numToDaijiDigits } from "./numToDaijiDigits";
-import { numToDutchDigits } from "./numToDutchDigits";
 import { numToEnglish } from "./numToEnglish";
-import { numToEnglishDigits } from "./numToEnglishDigits";
-import { numToFrenchDigits } from "./numToFrenchDigits";
-import { numToGermanDigits } from "./numToGermanDigits";
-import { numToGreekDigits } from "./numToGreekDigits";
-import { numToHindiDigits } from "./numToHindiDigits";
-import { numToIndonesianDigits } from "./numToIndonesianDigits";
-import { numToItalianDigits } from "./numToItalianDigits";
 import { numToJapanese } from "./numToJapanese";
-import { numToJapaneseDigits } from "./numToJapaneseDigits";
-import { numToKoreanDigits } from "./numToKoreanDigits";
-import { numToPolishDigits } from "./numToPolishDigits";
-import { numToPortugueseDigits } from "./numToPortugueseDigits";
-import { numToRomanDigits } from "./numToRomanDigits";
-import { numToRussianDigits } from "./numToRussianDigits";
 import { numToSi } from "./numToSi";
-import { numToSpanishDigits } from "./numToSpanishDigits";
-import { numToThaiDigits } from "./numToThaiDigits";
-import { numToTurkishDigits } from "./numToTurkishDigits";
-import { numToVietnameseDigits } from "./numToVietnameseDigits";
 
 /**
  * Converts a number to words in the specified locale.
@@ -50,7 +52,8 @@ export const numToWord = (locale: string, number: number | string, letterCase?: 
   if (!entry) {
     throw new InvalidLocaleError();
   }
-  if (entry.rejectsLetterCase && letterCase !== undefined) {
+  // 変換側で既定値や可変長引数を使うと引数の数が変わり、この判定がサイレントに壊れる
+  if (letterCase !== undefined && entry.fn.length < 2) {
     throw new InvalidArgumentError("Letter case is not supported for this conversion.");
   }
   return entry.fn(number, letterCase);
@@ -58,14 +61,14 @@ export const numToWord = (locale: string, number: number | string, letterCase?: 
 
 type LocaleEntry = {
   keys: string[];
+  // メソッド構文にすると引数が双変になり、number|stringを受け取らない関数まで通ってしまう
   fn: (_: number | string, _letterCase?: LetterCase) => string;
-  rejectsLetterCase?: boolean;
 };
 export const localeMap: LocaleEntry[] = [
-  { keys: ["si"], fn: numToSi, rejectsLetterCase: true },
-  { keys: ["en", "english"], fn: numToEnglish, rejectsLetterCase: true },
-  { keys: ["jp", "japanese", "kanji"], fn: numToJapanese, rejectsLetterCase: true },
-  { keys: ["jpdaiji", "daiji"], fn: numToDaiji, rejectsLetterCase: true },
+  { keys: ["si"], fn: numToSi },
+  { keys: ["en", "english"], fn: numToEnglish },
+  { keys: ["jp", "japanese", "kanji"], fn: numToJapanese },
+  { keys: ["jpdaiji", "daiji"], fn: numToDaiji },
   { keys: ["en-digits", "english-digits"], fn: numToEnglishDigits },
   { keys: ["jp-digits", "japanese-digits", "kanji-digits"], fn: numToJapaneseDigits },
   { keys: ["jpdaiji-digits", "daiji-digits"], fn: numToDaijiDigits },

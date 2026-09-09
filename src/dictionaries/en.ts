@@ -1,18 +1,7 @@
 import type { DigitWords } from "../types";
 import { LetterCase } from "../constants";
 
-export const enOnesPlace: readonly string[] = [
-  "zero",
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-];
+export const enOnesPlace = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"] as const;
 
 export const enTens: readonly string[] = [
   "ten",
@@ -150,6 +139,7 @@ export const enLargeUnits: Readonly<Record<number, string>> = {
 };
 
 export const enDigitWords: DigitWords = {
+  name: "English",
   digits: enOnesPlace,
   join: " ",
   decimalPoint: " point ",
