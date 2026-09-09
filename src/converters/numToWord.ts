@@ -1,31 +1,33 @@
 import { InvalidArgumentError, InvalidLocaleError } from "../errors";
+import {
+  numToArabicDigits,
+  numToBengaliDigits,
+  numToChineseDigits,
+  numToDaijiDigits,
+  numToDutchDigits,
+  numToEnglishDigits,
+  numToFrenchDigits,
+  numToGermanDigits,
+  numToGreekDigits,
+  numToHindiDigits,
+  numToIndonesianDigits,
+  numToItalianDigits,
+  numToJapaneseDigits,
+  numToKoreanDigits,
+  numToPolishDigits,
+  numToPortugueseDigits,
+  numToRomanDigits,
+  numToRussianDigits,
+  numToSpanishDigits,
+  numToThaiDigits,
+  numToTurkishDigits,
+  numToVietnameseDigits,
+} from "./digits";
 import { LetterCase } from "../constants";
-import { numToArabicDigits } from "./numToArabicDigits";
-import { numToBengaliDigits } from "./numToBengaliDigits";
-import { numToChineseDigits } from "./numToChineseDigits";
 import { numToDaiji } from "./numToDaiji";
-import { numToDaijiDigits } from "./numToDaijiDigits";
-import { numToDutchDigits } from "./numToDutchDigits";
 import { numToEnglish } from "./numToEnglish";
-import { numToEnglishDigits } from "./numToEnglishDigits";
-import { numToFrenchDigits } from "./numToFrenchDigits";
-import { numToGermanDigits } from "./numToGermanDigits";
-import { numToGreekDigits } from "./numToGreekDigits";
-import { numToHindiDigits } from "./numToHindiDigits";
-import { numToIndonesianDigits } from "./numToIndonesianDigits";
-import { numToItalianDigits } from "./numToItalianDigits";
 import { numToJapanese } from "./numToJapanese";
-import { numToJapaneseDigits } from "./numToJapaneseDigits";
-import { numToKoreanDigits } from "./numToKoreanDigits";
-import { numToPolishDigits } from "./numToPolishDigits";
-import { numToPortugueseDigits } from "./numToPortugueseDigits";
-import { numToRomanDigits } from "./numToRomanDigits";
-import { numToRussianDigits } from "./numToRussianDigits";
 import { numToSi } from "./numToSi";
-import { numToSpanishDigits } from "./numToSpanishDigits";
-import { numToThaiDigits } from "./numToThaiDigits";
-import { numToTurkishDigits } from "./numToTurkishDigits";
-import { numToVietnameseDigits } from "./numToVietnameseDigits";
 
 /**
  * Converts a number to words in the specified locale.

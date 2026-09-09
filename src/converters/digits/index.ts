@@ -1,0 +1,23 @@
+// このファイルはnpm run generateからの自動生成のため手動編集禁止
+export { numToArabicDigits } from "./numToArabicDigits";
+export { numToBengaliDigits } from "./numToBengaliDigits";
+export { numToChineseDigits } from "./numToChineseDigits";
+export { numToDaijiDigits } from "./numToDaijiDigits";
+export { numToDutchDigits } from "./numToDutchDigits";
+export { numToEnglishDigits } from "./numToEnglishDigits";
+export { numToFrenchDigits } from "./numToFrenchDigits";
+export { numToGermanDigits } from "./numToGermanDigits";
+export { numToGreekDigits } from "./numToGreekDigits";
+export { numToHindiDigits } from "./numToHindiDigits";
+export { numToIndonesianDigits } from "./numToIndonesianDigits";
+export { numToItalianDigits } from "./numToItalianDigits";
+export { numToJapaneseDigits } from "./numToJapaneseDigits";
+export { numToKoreanDigits } from "./numToKoreanDigits";
+export { numToPolishDigits } from "./numToPolishDigits";
+export { numToPortugueseDigits } from "./numToPortugueseDigits";
+export { numToRomanDigits } from "./numToRomanDigits";
+export { numToRussianDigits } from "./numToRussianDigits";
+export { numToSpanishDigits } from "./numToSpanishDigits";
+export { numToThaiDigits } from "./numToThaiDigits";
+export { numToTurkishDigits } from "./numToTurkishDigits";
+export { numToVietnameseDigits } from "./numToVietnameseDigits";
